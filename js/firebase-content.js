@@ -1,5 +1,5 @@
 var weeks = [];
-var activeWeek = null;
+var activeWeek = Number(window.location.hash.replace("#", ""));
 
 const weekListElement = document.querySelector("#week-list")
 
@@ -24,7 +24,7 @@ const firestoreFetchWeeks = async () => {
       weekListElement.appendChild(button)
     })
 
-    const startingActiveWeek = weeks[0].week_number;
+    const startingActiveWeek = activeWeek || weeks[0].week_number;
     changeWeek(startingActiveWeek)
   } catch (error) {
     console.log("Error getting weeks:", error);
@@ -79,7 +79,7 @@ const changeWeekDisplay = () => {
     li.innerHTML = `
       <h3>${essay.title ? `<i>${essay.title}</i> by ` : ''}${essay.writer}</h3>
 			<p>${getTextExcerpt(essay.content)}</p>
-			<a href="/read#${essay.id}"><button>Read</button></a>
+			<a href="/essay#${essay.id}"><button>Read</button></a>
     `
     weekEssayList.appendChild(li)
   })
