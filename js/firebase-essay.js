@@ -17,9 +17,11 @@ const firestoreFetchEssay = async () => {
       ...fetchedEssay.data(),
     };
 
+    console.log(essay)
+
     const fetchedWeek = await db
       .collection("weeks")
-      .where("week_number", "==", essay.week)
+      .where("week_number", "==", Number(essay.week))
       .get();
 
     const week = fetchedWeek.docs[0].data();
