@@ -40,7 +40,7 @@ const firestoreFetchEssay = async () => {
     content.innerHTML = essay.content.replaceAll("\n", "<br>");
 
     backButton.innerText += ' ' + essay.week
-    backLink.href = `/#${essay.week}`
+    backLink.href = `../#${essay.week}`
   } catch (error) {
     console.log("Error getting weeks:", error);
   }
