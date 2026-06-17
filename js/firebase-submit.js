@@ -40,12 +40,21 @@ const firestoreFetchWeeks = async () => {
 firestoreFetchWeeks();
 
 const handleFormSubmit = (e) => {
-  if (submitted) return;
+  const user = getUser();
+  if (!user || submitted) return;
   submitted = true;
   e.preventDefault();
   console.log(e);
-  const formData = Object.fromEntries(new FormData(e.target));
+  const formData = {
+    ...Object.fromEntries(new FormData(e.target)),
+    created_by: user.uid
+  }
   console.log(formData);
+
+  title.disabled = true
+  writer.disabled = true
+  weekSelect.disabled = true
+  content.disabled = true
 
   db.collection("submissions")
     .add(formData)
