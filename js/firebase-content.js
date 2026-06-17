@@ -68,7 +68,7 @@ const changeWeekDisplay = () => {
   [...weekListElement.children].forEach(e => e.disabled = false)
   weekListElement.children[weekIndex].disabled = true
 
-  submitForWeek.href = `/submit#${activeWeek}`
+  submitForWeek.href = `submit#${activeWeek}`
 
   // second: update week title
   weekTitle.innerHTML = `Week ${activeWeek}: <i>${week.theme}</i>`
@@ -82,7 +82,7 @@ const changeWeekDisplay = () => {
     li.innerHTML = `
       <h3>${essay.title ? `<i>${essay.title}</i> by ` : ''}${essay.writer}</h3>
 			<p>${getTextExcerpt(essay.content)}</p>
-			<a href="/essay#${essay.id}"><button>Read</button></a>
+			<a href="essay#${essay.id}"><button>Read</button></a>
     `
     weekEssayList.appendChild(li)
   })
