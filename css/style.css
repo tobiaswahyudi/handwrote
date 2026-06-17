@@ -1,0 +1,10 @@
+#user-img {
+    height: 1.2em;
+    width: 1.2em;
+    border-radius: 50%;
+    vertical-align: bottom;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,21 +1,30 @@
-var ui = new firebaseui.auth.AuthUI(app.firebase.auth());
-
-app.firebase.auth().onAuthStateChanged((u) => {
+firebase.auth().onAuthStateChanged((u) => {
+  console.log("auth state changed to ", u)
   userLoaded = true;
   if (u) {
     user = u;
     initLoggedInUserView("#firebaseui-auth-container");
   } else {
-    ui.start("#firebaseui-auth-container", {
-      signInOptions: [
-        // firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      ],
-      signInSuccessUrl: window.location.href,
-      // persistence: firebase.auth.Auth.Persistence.SESSION
-    });
+    user = null
   }
+  setLoginDisplayGates()
 });
+
+const login = () => {
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth()
+    .signInWithPopup(provider)
+    .then((result) => {
+      console.log(result)
+      var credential = result.credential;
+
+      var token = credential.accessToken;
+      var user = result.user;
+    }).catch((error) => {
+      console.error("auth error", error)
+    });
+}
+
 
 var userLoaded = false;
 var user = firebase.auth().currentUser;
@@ -31,21 +40,23 @@ const getUser = () => {
   };
 };
 
-const initLoggedInUserView = (selector) => {
+const initLoggedInUserView = () => {
   const user = getUser();
   if (!user) return;
-  const rootNode = document.querySelector(selector);
-  if (!rootNode) return;
-
-  const toggleProfileDropdown = 
-
-  rootNode.setHTMLUnsafe(`
-        <div class="user-container">
-            <div class="user-name-email">
-                <span class="user-name">${user.displayName}</span>
-                <span class="user-email">${user.email}</span>
-            </div>
-            <img src="${user.photoURL}"></img>
-        </div>
-    `);
+  const img = document.querySelector('#user-img');
+  const name = document.querySelector('#user-name');
+  img.src = user.photoURL
+  name.innerText = user.displayName
 };
+
+const setLoginDisplayGates = () => {
+  const loggedIn = !!getUser()
+  console.log("setting gates to loggin?", loggedIn);
+  [...document.getElementsByClassName('login-hide')].forEach(e => e.style.display = loggedIn ? 'none' : 'initial');
+  [...document.getElementsByClassName('login-show')].forEach(e => e.style.display = loggedIn ? 'initial' : 'none');
+  [...document.getElementsByClassName('login-enable')].forEach(e => e.disabled = !loggedIn);
+}
+
+const logout = () => {
+  firebase.auth().signOut()
+}

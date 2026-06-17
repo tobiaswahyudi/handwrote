@@ -15,9 +15,7 @@
 	<script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
 	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
 
-	<script src="js/auth-init.js"></script>
-
-	<link rel="stylesheet" href="css/auth.css"></link>
+	<link rel="stylesheet" href="css/style.css"></link>
 </head>
 <body>
 	<h1>Handwrote</h1>
@@ -26,36 +24,22 @@
 	</div>
 
 	<hr>
-	<div id="firebaseui-auth-container"></div>
-	<div id="logged-in-user">
-	 <p>Logged in as <img src="https://lh3.googleusercontent.com/a/ACg8ocKWVQoO-a7aphFROPFNYv5GDPkWB8Wtc11OfNcrMoHYZ2e9qw=s96-c"> Tobias Wahyudi</p>
-	 <button>Log out</button>
+	<button class="login-hide" onclick="login()">Log in with Google</button>
+	<div class="hidden login-show">
+	 <p>Logged in as <img id="user-img"> <span id="user-name">John Pork</span></p>
+	 <button onclick="logout()">Log out</button>
 	 </div>
 	<hr>
-	<div>
-		<h2>Let's write!</h2>
-		<p>Week 2 (Jun 15 - Jun 22)</p>
-		<p>This week's prompt: <i>“Taking back the em-dash”</i></p>
-		<button>Submit essay</button>
-	</div>
-	<hr>
 	<h2>Library</h2>
-	<div>
-		<button>Week 1</button>
-		<button>Week 2</button>
-	</div>
+	<div id="week-list"></div>
 	<hr>
-	<h2>Essays for Week 1: <i>“Taking back the em-dash”</i></h3>
-	<ul>
-		<li>
-			<h3><i>Tooth of Wisdom</i> by Zoe Smith</h3>
-			<p>In older versions of the story shoving his thumb in and against a particular tooth, the tooth of wisdom did...</p>
-			<button>Read</button>
-		</li>
-		<li>
-			<h3><i>Book of Kings, Chapter III</i> by Toby Wahyudi</h3>
-			<p>... - hand dripping blood. The Tunguls were his last...</p>
-			<button>Read</button>
-		</li>
-	</ul>
+	<h2 id="week-title"></h3>
+	<p id="week-date-range"></p>
+	<button disabled class="login-enable">
+		<span class="login-hide">Log in to submit essays</span>
+		<span class="hidden login-show">Submit essay for this week</span>
+	</button>
+	<ul id="week-essay-list"></ul>
 </body>
+<script src="js/auth-init.js"></script>
+<script src="js/firebase-content.js"></script>
