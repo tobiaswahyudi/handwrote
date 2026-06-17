@@ -2,9 +2,6 @@
 
 <head>
 	<title>Handwrote</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<!-- <link href="https://fonts.googleapis.com/css2?family=Rubik+Scribble&family=Yatra+One&display=swap" rel="stylesheet"> -->
 	<meta http-equiv="Content-type" name="viewport"
 		content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
 
@@ -26,7 +23,6 @@
 	<div class="center">
 		A writing club
 	</div>
-
 	<hr>
 	<button class="login-hide" onclick="login()">Log in with Google</button>
 	<div class="hidden login-show">
@@ -34,21 +30,42 @@
 		<button onclick="logout()">Log out</button>
 	</div>
 	<hr>
-	<h2>Library</h2>
-	<div id="week-list"></div>
-	<hr>
-	<h2 id="week-title">
-		</h3>
-		<p id="week-date-range"></p>
-		<a id="submit-for-week"><button disabled class="login-enable">
-				<span class="login-hide">Log in to submit essays</span>
-				<span class="hidden login-show">Submit essay for this week</span>
-			</button>
-		</a>
-		<ul id="week-essay-list"></ul>
+	<div class="hidden login-show">
+		<form onsubmit="handleFormSubmit(event)">
+			<table>
+				<tr>
+					<td>
+						<label>Title (optional): </label>
+					</td>
+					<td>
+						<input class="stretch" name="title" id="title"></input>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<label>Your (preferred/pen) name: </label>
+					</td>
+					<td>
+						<input class="stretch" name="writer" id="writer"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>Submitting for week: </label>
+					</td>
+					<td>
+						<select name="week" id="week-select"></select>
+					</td>
+				</tr>
+
+			</table>
+			<label class="block">Content: </label>
+			<textarea class="block" name="content" id="content"></textarea>
+			<input type="submit"></input>
+		</form>
+	</div>
+	<p class="login-hide">Please log in to submit essays</p>
 </body>
 <script src="js/auth-init.js"></script>
-<script>
-	const EXCERPT_MAX_LENGTH = 320;
-</script>
-<script src="js/firebase-content.js"></script>
+<script src="js/firebase-submit.js"></script>

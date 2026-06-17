@@ -1,5 +1,5 @@
 var weeks = [];
-var activeWeek = Number(window.location.hash.replace("#", ""));
+var activeWeek = window.location.hash.replace("#", "");
 
 const weekListElement = document.querySelector("#week-list")
 
@@ -38,7 +38,7 @@ const fetchActiveWeek = async () => {
   if (week.essaysFetched) return;
   const essays = await db
     .collection("submissions")
-    .where("week", "==", activeWeek)
+    .where("week", "==", String(activeWeek))
     .get();
   essays.forEach((essay) => {
     week.essays.push({
@@ -59,6 +59,7 @@ const changeWeek = async (n) => {
 const weekTitle = document.querySelector("#week-title")
 const weekDateRange = document.querySelector("#week-date-range")
 const weekEssayList = document.querySelector("#week-essay-list")
+const submitForWeek = document.querySelector("#submit-for-week")
 
 const changeWeekDisplay = () => {
   // first: update week selector list
@@ -66,6 +67,8 @@ const changeWeekDisplay = () => {
   const week = weeks[weekIndex];
   [...weekListElement.children].forEach(e => e.disabled = false)
   weekListElement.children[weekIndex].disabled = true
+
+  submitForWeek.href = `/submit#${activeWeek}`
 
   // second: update week title
   weekTitle.innerHTML = `Week ${activeWeek}: <i>${week.theme}</i>`

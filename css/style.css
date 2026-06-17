@@ -8,3 +8,17 @@
 .hidden {
     display: none;
 }
+
+.block {
+    display: block;
+}
+
+#content {
+    min-width: 40em;
+    min-height: 16em;
+    margin: 0.5em 0;
+}
+
+.stretch {
+    width: stretch;
+}
