@@ -78,7 +78,7 @@ const changeWeekDisplay = () => {
     const li = document.createElement('li')
     li.innerHTML = `
       <h3>${essay.title ? `<i>${essay.title}</i> by ` : ''}${essay.writer}</h3>
-			<p>${essay.content}</p>
+			<p>${getTextExcerpt(essay.content)}</p>
 			<a href="/read#${essay.id}"><button>Read</button></a>
     `
     weekEssayList.appendChild(li)
@@ -91,4 +91,11 @@ const stinkyFormatDate = (timestamp) => {
   const date = new Date(millis)
   const segments = date.toDateString().split(' ')
   return segments[1] + ' ' + segments[2]
+}
+
+const getTextExcerpt = (fulltext) => {
+  const clipped = fulltext.substring(0, EXCERPT_MAX_LENGTH)
+  const words = clipped.split(' ')
+  words.pop()
+  return words.join(' ') + '...'
 }
