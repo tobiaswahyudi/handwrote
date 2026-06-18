@@ -76,16 +76,20 @@ const changeWeekDisplay = () => {
 
   // third: update week essays
   // teardown all essays
-  weekEssayList.innerHTML = ''
-  week.essays.forEach(essay => {
-    const li = document.createElement('li')
-    li.innerHTML = `
-      <h3>${essay.title ? `<i>${essay.title}</i> by ` : ''}${essay.writer}</h3>
-			<p>${getTextExcerpt(essay.content)}</p>
-			<a href="essay#${essay.id}"><button>Read</button></a>
-    `
-    weekEssayList.appendChild(li)
-  })
+  if(week.essays.length == 0) {
+    weekEssayList.innerHTML = 'No essays yet - be the first to submit!'
+  } else {
+    weekEssayList.innerHTML = ''
+    week.essays.forEach(essay => {
+      const li = document.createElement('li')
+      li.innerHTML = `
+        <h3>${essay.title ? `<i>${essay.title}</i> by ` : ''}${essay.writer}</h3>
+        <p>${getTextExcerpt(essay.content)}</p>
+        <a href="essay#${essay.id}"><button>Read</button></a>
+      `
+      weekEssayList.appendChild(li)
+    })
+  }
 }
 
 const stinkyFormatDate = (timestamp) => {
